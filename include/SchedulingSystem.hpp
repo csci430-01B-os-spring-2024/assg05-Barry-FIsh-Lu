@@ -168,6 +168,8 @@ public:
   int getNumProcesses();
   bool isCpuIdle();
   string getRunningProcessName();
+  // Task 2
+  bool allProcessesDone() const;
 
   // methods for loading or generating page reference streams
   // for the simulation

@@ -129,6 +129,16 @@ string SchedulingSystem::getRunningProcessName() {
   }
 }
 
+// Task 2
+bool SchedulingSystem::allProcessesDone() const{
+  for (int i = 0; i < numProcesses; i++) {
+    if (process[i].done == false){
+      return false;
+    }
+  }
+  return true;
+}
+
 /**
  * @brief reset system simulation
  *
