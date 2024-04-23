@@ -164,12 +164,14 @@ public:
   string finalResultsTable() const;
   string finalSchedule() const;
   // Task 1
-  int getSystemTime();
-  int getNumProcesses();
-  bool isCpuIdle();
-  string getRunningProcessName();
+  int getSystemTime() const;
+  int getNumProcesses() const;
+  bool isCpuIdle() const;
+  string getRunningProcessName() const;
   // Task 2
   bool allProcessesDone() const;
+  // Task 3
+  void dispatchCpuIfIdle();
 
   // methods for loading or generating page reference streams
   // for the simulation

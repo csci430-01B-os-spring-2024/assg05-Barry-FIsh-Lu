@@ -105,13 +105,13 @@ SchedulingSystem::~SchedulingSystem()
 }
 
 // Task 1
-int SchedulingSystem::getSystemTime() {
+int SchedulingSystem::getSystemTime() const{
   return systemTime;
 }
-int SchedulingSystem::getNumProcesses() {
+int SchedulingSystem::getNumProcesses() const{
   return numProcesses;
 }
-bool SchedulingSystem::isCpuIdle() {
+bool SchedulingSystem::isCpuIdle() const{
   if (cpu == IDLE) {
     return true;
   }
@@ -120,7 +120,7 @@ bool SchedulingSystem::isCpuIdle() {
     return false;
   }
 }
-string SchedulingSystem::getRunningProcessName() {
+string SchedulingSystem::getRunningProcessName() const{
   if (isCpuIdle()) {
     return "IDLE";
   }
@@ -137,6 +137,16 @@ bool SchedulingSystem::allProcessesDone() const{
     }
   }
   return true;
+}
+
+// Task 3
+void SchedulingSystem::dispatchCpuIfIdle() {
+  if (isCpuIdle()) {
+    cpu = policy->dispatch();
+    if (process[cpu].startTime == NOT_STARTED) {
+      process[cpu].startTime = systemTime;
+    }
+  }
 }
 
 /**
