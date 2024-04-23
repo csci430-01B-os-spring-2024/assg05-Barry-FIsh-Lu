@@ -172,6 +172,8 @@ public:
   bool allProcessesDone() const;
   // Task 3
   void dispatchCpuIfIdle();
+  // Task 4
+  void checkProcessFinished();
 
   // methods for loading or generating page reference streams
   // for the simulation

@@ -149,6 +149,18 @@ void SchedulingSystem::dispatchCpuIfIdle() {
   }
 }
 
+// Task 4
+void SchedulingSystem::checkProcessFinished() {
+  if (isCpuIdle() || process[cpu].usedTime < process[cpu].serviceTime) {
+    return;
+  }
+  else {
+    process[cpu].endTime = systemTime;
+    process[cpu].done = true;
+    cpu = IDLE;
+  }
+}
+
 /**
  * @brief reset system simulation
  *
