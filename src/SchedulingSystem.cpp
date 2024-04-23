@@ -104,6 +104,31 @@ SchedulingSystem::~SchedulingSystem()
   }
 }
 
+// Task 1
+int SchedulingSystem::getSystemTime() {
+  return systemTime;
+}
+int SchedulingSystem::getNumProcesses() {
+  return numProcesses;
+}
+bool SchedulingSystem::isCpuIdle() {
+  if (cpu == IDLE) {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+string SchedulingSystem::getRunningProcessName() {
+  if (isCpuIdle()) {
+    return "IDLE";
+  }
+  else {
+    return process[cpu].name;
+  }
+}
+
 /**
  * @brief reset system simulation
  *
