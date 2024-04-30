@@ -3,10 +3,10 @@
 PROJECT_NAME=assg05
 assg_src = SchedulingSystem.cpp \
 	   SchedulingPolicy.cpp \
-	   FCFSSchedulingPolicy.cpp
+	   FCFSSchedulingPolicy.cpp \
+		 SPNSchedulingPolicy.cpp
 	   # HRRNSchedulingPolicy.cpp
 	   # RRSchedulingPolicy.cpp
-	   # SPNSchedulingPolicy.cpp
 	   # SRTSchedulingPolicy.cpp
 
 test_src = ${PROJECT_NAME}-tests.cpp \
