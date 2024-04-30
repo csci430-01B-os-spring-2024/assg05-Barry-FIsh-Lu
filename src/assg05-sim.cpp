@@ -11,7 +11,7 @@
  */
 #include "FCFSSchedulingPolicy.hpp"
 //#include "HRRNSchedulingPolicy.hpp"
-//#include "SPNSchedulingPolicy.hpp"
+#include "SPNSchedulingPolicy.hpp"
 //#include "SRTSchedulingPolicy.hpp"
 //#include "RRSchedulingPolicy.hpp"
 #include "SchedulingSystem.hpp"
@@ -104,11 +104,11 @@ int main(int argc, char** argv)
   else if (policyName == "HRRN")
   {
     policy = new HRRNSchedulingPolicy();
-  }
+  }*/
   else if (policyName == "SPN")
   {
     policy = new SPNSchedulingPolicy();
-  }
+  } /*
   else if (policyName == "SRT")
   {
     policy = new SRTSchedulingPolicy();

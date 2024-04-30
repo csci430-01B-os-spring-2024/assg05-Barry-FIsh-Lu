@@ -105,6 +105,133 @@ SchedulingSystem::~SchedulingSystem()
 }
 
 /**
+ * @brief Get System Time
+ *
+ * Gets and returns the current system time.
+ *
+ * @returns int returns the value of systemTime.
+ */
+int SchedulingSystem::getSystemTime() const
+{
+  return systemTime;
+}
+
+/**
+ * @brief Get Number of Processes
+ *
+ * Gets and returns the number of processes.
+ *
+ * @returns int returns the value of numProcesses.
+ */
+int SchedulingSystem::getNumProcesses() const
+{
+  return numProcesses;
+}
+
+/**
+ * @brief Is Cpu Idle
+ *
+ * Determines if cpu is Idle.
+ *
+ * @returns bool True if cpue if idle and false if not.
+ */
+bool SchedulingSystem::isCpuIdle() const
+{
+  if (cpu == IDLE)
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+
+/**
+ * @brief Get Running Process Name
+ *
+ * Gets and returns the name of the running process.
+ *
+ * @returns string IDLE if cpu is idle and the name of process when not.
+ */
+string SchedulingSystem::getRunningProcessName() const
+{
+  if (isCpuIdle())
+  {
+    return "IDLE";
+  }
+  else
+  {
+    return process[cpu].name;
+  }
+}
+
+/**
+ * @brief Are all processes Done
+ *
+ * Looks through the process table to fine if a process is not done
+ * to determine if all processes are finshied.
+ *
+ * @returns bool false if not all processes are done and true if they are.
+ */
+bool SchedulingSystem::allProcessesDone() const
+{
+  for (int i = 0; i < numProcesses; i++)
+  {
+    if (process[i].done == false)
+    {
+      return false;
+    }
+  }
+  return true;
+}
+
+/**
+ * @brief Dispatch Cpu if Idle
+ *
+ * If cpu is idle, queary policy to return the pid of the next process.
+ * Then set the cpu to be this pid and record the startTime. If the process
+ * has never run before, its startTime will be NOT_STARTED. If the process is
+ * running for the first time, make sure you record the current
+ * time as the processes startTime.
+ *
+ */
+void SchedulingSystem::dispatchCpuIfIdle()
+{
+  if (isCpuIdle())
+  {
+    cpu = policy->dispatch();
+    if (process[cpu].startTime == NOT_STARTED)
+    {
+      process[cpu].startTime = systemTime;
+    }
+  }
+}
+
+/**
+ * @brief Check Process is Finished
+ *
+ * If the cpu is currently IDLE or the process running time used is
+ * less than its service time then there is nothing to do, and you
+ * should return immediately. Otherwise, record the endTime as current
+ * systemTime, mark the process as done, and set the cpu to IDLE.
+ *
+ */
+void SchedulingSystem::checkProcessFinished()
+{
+  if (isCpuIdle() || process[cpu].usedTime < process[cpu].serviceTime)
+  {
+    return;
+  }
+  else
+  {
+    process[cpu].endTime = systemTime;
+    process[cpu].done = true;
+    cpu = IDLE;
+  }
+}
+
+/**
  * @brief reset system simulation
  *
  * Make sure the simulation is correctly initialized to start
@@ -584,10 +711,10 @@ void SchedulingSystem::runSimulation(bool verbose)
   // to make scheduling decisions.  We keep running the simulation until
   // all processes in the process table are done
   string schedule = "";
-  /*
+
   while (not allProcessesDone())
   {
-    //cout << "runSimulation()> systemTime: " << systemTime << endl;
+    // cout << "runSimulation()> systemTime: " << systemTime << endl;
 
     // check for new arrivals at this time step so can notify
     // our scheduling policy to add new processs they are managing
@@ -610,7 +737,6 @@ void SchedulingSystem::runSimulation(bool verbose)
     // is up to date for scheduling policies to use
     updateProcessStatistics();
   }
-  */
 
   // Display scheduling simulation results if asked too
   if (verbose)

@@ -163,6 +163,17 @@ public:
   Process* getProcessTable() const;
   string finalResultsTable() const;
   string finalSchedule() const;
+  // Task 1
+  int getSystemTime() const;
+  int getNumProcesses() const;
+  bool isCpuIdle() const;
+  string getRunningProcessName() const;
+  // Task 2
+  bool allProcessesDone() const;
+  // Task 3
+  void dispatchCpuIfIdle();
+  // Task 4
+  void checkProcessFinished();
 
   // methods for loading or generating page reference streams
   // for the simulation
